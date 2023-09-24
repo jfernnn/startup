@@ -19,5 +19,20 @@ Finding the perfect study partner has never been easier! Study Buddy Finder is y
 - Search for Study Buddies: Users can search for potential study partners based on class, subject, or location (library).
 
 
+## Technologies
+
+- **HTML** - Develop structured HTML templates for login and user profile pages.
+Incorporate hyperlinks to seamlessly connect with library websites for study room reservations.
+- **CSS** -Apply CSS to create an aesthetically pleasing and responsive user interface.
+Focus on effective use of whitespace, color palettes, and contrast to enhance the overall design.
+- **JavaScript** -Leverage JavaScript to enable user login, dynamic content rendering, voting interactions, and communication with backend APIs.
+- **Service** - Establish a robust backend service with endpoints dedicated to:
+  - User registration and authentication
+  - Retrieving study room information
+- **DB** - Utilize a database to store and manage user profiles, chat records, study group data, and library study room details.
+- **Login** - Implement user registration and authentication mechanisms with a focus on secure credential storage.
+Enforce access controls, ensuring that certain features are only available to authenticated users.
+- **WebSocket** - Employ WebSocket technology to facilitate real-time broadcasting of user votes to all participants.
+- **React** - Adapt the application to utilize the React framework for improved component-based organization and dynamic user interfaces.
 
 
