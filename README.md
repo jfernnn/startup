@@ -4,6 +4,10 @@
 
 Finding the perfect study partner has never been easier! Study Buddy Finder is your go-to platform for connecting with fellow students, reserving study rooms at BYU and UVU libraries, and collaborating on your coursework. With features like real-time chat, class-specific groups, and seamless library integration, Study Buddy Finder makes studying fun and productive. Join the community and level up your study game!
 
+## Design
+![image](https://github.com/jfernnn/startup/assets/18669390/48388895-e63f-435d-98fb-52593f0deb08)
+
+
 ## Key Features
 
 - User Authentication: Users can create accounts and log in securely. After logging in, their names will be displayed.
@@ -25,14 +29,14 @@ Finding the perfect study partner has never been easier! Study Buddy Finder is y
 Incorporate hyperlinks to seamlessly connect with library websites for study room reservations.
 - **CSS** -Apply CSS to create an aesthetically pleasing and responsive user interface.
 Focus on effective use of whitespace, color palettes, and contrast to enhance the overall design.
-- **JavaScript** -Leverage JavaScript to enable user login, dynamic content rendering, voting interactions, and communication with backend APIs.
-- **Service** - Establish a robust backend service with endpoints dedicated to:
+- **JavaScript** -Use JavaScript to enable user login, dynamic content rendering, and communication with backend APIs.
+- **Service** - Establish a  backend service with endpoints that allow:
   - User registration and authentication
   - Retrieving study room information
+  - Real time chatting
 - **DB** - Utilize a database to store and manage user profiles, chat records, study group data, and library study room details.
-- **Login** - Implement user registration and authentication mechanisms with a focus on secure credential storage.
-Enforce access controls, ensuring that certain features are only available to authenticated users.
-- **WebSocket** - Employ WebSocket technology to facilitate real-time broadcasting of user votes to all participants.
-- **React** - Adapt the application to utilize the React framework for improved component-based organization and dynamic user interfaces.
+- **Login** - Implement user registration and authentication mechanisms with a focus on secure credential storage. Also, make it so certain features are only available to authenticated users.
+- **WebSocket** - Each user will be able to chat with each other in real time.
+- **React** - Utilize the React framework for improved component-based organization and dynamic user interfaces.
 
 
