@@ -10,7 +10,6 @@ body {
   }
   
   main {
-    margin-top: 60px;
     overflow: auto;
     flex: 1 calc(100vh - 110px);
     display: flex;

@@ -49,24 +49,28 @@
     </header>
 
     <main>
+      <form>
         <h1>Find Study Buddies</h1>
-        <form method="get" action="find.html">
-            <label for="findName">Search By Name</label>
+        <div method="get" action="find.html" >
+            <label for="findName">Search By Name</label><br />
             <input type="text" id="findName" placeholder="Johanna" />
-            <button type="submit">Search</button>
-        </form>
-        <form method="get" action="find.html">
-            <label for="findClass">Search By Class</label>
+            <button class="btn btn-dark" type="submit">Search</button>
+          </div>
+        <br />
+        <div method="get" action="find.html">
+            <label for="findClass">Search By Class</label><br />
             <input type="text" id="findClass" placeholder="Music 101" />
-            <button type="submit">Search</button>
-        </form>
+            <button class="btn btn-dark" type="submit">Search</button>
+          </div>
+      </form>
     </main>
 
     <footer>
+      <div class="footer fixed-bottom">
       <hr />
       <span class="text-reset">Author: Joshua Fernelius</span>
-      <br />
       <a href="https://github.com/jfernnn/startup">GitHub</a>
+      </div>
     </footer>
   </body>
 </html>
