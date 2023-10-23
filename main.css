@@ -24,6 +24,10 @@ body {
     height: 20px;
     flex: 0 30px;
   }
+
+  .row {
+    margin-left: 20%;
+  }
   
   menu {
     flex: 1;
@@ -51,4 +55,3 @@ body {
       flex: 1 100vh;
     }
   }
-  
