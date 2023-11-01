@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StudyBuddy HTML</title>
     <link rel="icon" href="StudyBooks.ico" />
+
+    <script src="login.js"></script>
     <link rel="stylesheet" href="main.css" />
         <!-- Include bootstrap CSS framework -->
     <link
@@ -50,18 +52,44 @@
     </header>
 
     <main class="bg-light">
-      <div class="text-center">
+      <div id="user-login" class="text-center">
         <h1>Welcome</h1>
         <p>Login to find others</p>
-        <form method="get" action="profile.html">
+        <div>
           <label for="name">Username</label>
           <input type="text" id="userName" placeholder="joshfern24" />
           <br />
           <label for="name">Password </label>
           <input type="password" id="password" placeholder="********" />
           <br />
-          <button type="submit">Login</button>
-        </form>
+          <button onclick="login()">Login</button>
+        </div>
+        <p>Not a user yet?</p>
+        <button onclick="toggleRegister()" id="register-button">Register</button>
+      </div> 
+
+      <div id="user-register" class="text-center">
+        <h1>Welcome</h1>
+        <p>Register!</p>
+        <div>
+          <label>Username</label>
+          <input type="text" id="regUserName" placeholder="joshfern24" />
+          <br />
+          <label>Password </label>
+          <input type="text" id="regPassword" placeholder="********" />
+          <br />
+          <label>First Name</label>
+          <input type="text" id="firstName" placeholder="Joshua" />
+          <br />
+          <label>Last Name</label>
+          <input type="text" id="lastName" placeholder="Fern" />
+          <br />
+          <label>School</label>
+          <input type="text" id="schoolName" placeholder="BYU" />
+          <br />
+
+          <button onclick="register()">Register</button>
+        </div>
       </div> 
     </main>
 
