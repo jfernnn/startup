@@ -8,11 +8,11 @@ function login() {
 function register() {
   //const nameOfUser = document.querySelector("#userName");
   //const userPassword = document.querySelector("#password");
-  const u = document.querySelector('#regUserName').value;
-  const p = document.querySelector('#regPassword').value;
-  const f = document.querySelector('#firstName').value;
-  const l = document.querySelector('#firstName').value;
-  const s = document.querySelector('#schoolName').value;
+  const u = document.getElementById("regUserName").value;
+  const p = document.getElementById("regPassword").value;
+  const f = document.getElementById("firstName").value;
+  const l = document.getElementById("firstName").value;
+  const s = document.getElementById("schoolName").value;
 
 
   const newUser = {
@@ -22,18 +22,7 @@ function register() {
     last_name : l,
     school : s
   }
-  let users = [];
-  const usersText = localStorage.getItem('users');
-  if(usersText) {
-    users = JSON.parse(usersText);
-  }
-
-  let found = false;
- // for(let u of users.entries()) {
- //   if(u.username === newUser.username) {
- //       found = true;
- //   }
- // }
+  const users = JSON.parse(localStorage.getItem('users')) || [];
 
  // if(!found) {
   users.push(newUser);
@@ -41,6 +30,14 @@ function register() {
 
   localStorage.setItem('users', JSON.stringify(users));
   localStorage.setItem('userName', u);
+
+  /*
+  document.getElementById('regUserName').value = "";
+  document.getElementById('regPassword').value = "";
+  document.getElementById('firstName').value = "";
+  document.getElementById('firstName').value = "";
+  document.getElementById('schoolName').value = "";
+*/
   window.location.href = "profile.html";
 }
 

@@ -6,6 +6,7 @@
     <title>StudyBuddy HTML</title>
     <link rel="icon" href="StudyBooks.ico" />
     <link rel="stylesheet" href="main.css" />
+
     <!-- Include bootstrap CSS framework -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -48,21 +49,22 @@
       </nav>
     </header>
 
-    <main class="bg-light">
-      <form>
+    <main id="small-screen" class="bg-light">
+      <div id="small-screen">
         <h1>Find Study Buddies</h1>
-        <div method="get" action="find.html" >
-            <label for="findName">Search By Name</label><br />
-            <input type="text" id="findName" placeholder="Johanna" />
-            <button class="btn btn-dark" type="submit">Search</button>
-          </div>
+        <div>
+            <label for="person">Search By Name</label><br />
+            <input type="text" id="person" placeholder="Johanna" />
+            <button onclick="searchPerson()" class="btn btn-dark">Search</button>
+        </div>
+        <span class="person-name"></span>
         <br />
         <div method="get" action="find.html">
             <label for="findClass">Search By Class</label><br />
             <input type="text" id="findClass" placeholder="Music 101" />
             <button class="btn btn-dark" type="submit">Search</button>
           </div>
-      </form>
+        </div>
     </main>
 
     <footer>
@@ -71,5 +73,7 @@
         <a href="https://github.com/jfernnn/startup">GitHub</a>
       </div>
     </footer>
+
+    <script src="find.js"></script>
   </body>
 </html>

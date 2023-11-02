@@ -48,20 +48,25 @@
       </nav>
     </header>
 
-    <main class="bg-light">
+    <main id="small-screen" class="bg-light">
+      <div id="small-screen">
       <div class="d-flex justify-content-center">
         <form class="">
-          <h1>Create A Group</h1>
+          <h1>Create a Group</h1>
           <div>
-            <label for="exampleFormControlInput1">Class Name</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Art History 101">
+            <label for="new-group-name">Group Name</label>
+            <input type="text" class="form-control" id="new-group-name" placeholder="Josh's group">
+
+            <label for="new-class-name">Class Name</label>
+            <input type="text" class="form-control" id="new-class-name" placeholder="Art History 101">
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">Group Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <div>
+            <label for="new-group-description">Group Description</label>
+            <textarea class="form-control" id="new-group-description" rows="3"></textarea>
           </div>
           <button class="btn btn-dark" type="submit">Create</button>
         </form>
+      </div>
       </div>
     </main>
 
