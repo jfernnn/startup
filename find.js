@@ -41,3 +41,24 @@ function searchPerson() {
 //    localStorage.setItem("userName", nameOfUser.value);
 //    window.location.href = "find.html";
   }
+
+function searchGroup(){
+    const searchGroupName = document.getElementById("findGroup").value;
+
+    console.log(searchGroupName);
+    let groups = JSON.parse(localStorage.getItem('groups')) || [];
+
+    const searchResults = groups.filter(group => group.name.toLowerCase().includes(searchGroupName.toLowerCase()));
+    let nameString = "";
+    if(searchResults.length === 0) {
+        nameString = "No group found";
+    } else {
+        nameString = searchResults[0].name;
+    }
+
+    console.log(searchResults.length);
+    localStorage.setItem('found-group', nameString);
+    const personNameEl = document.querySelector('.group-name');
+    personNameEl.textContent = localStorage.getItem('found-group');
+
+}

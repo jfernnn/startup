@@ -1,8 +1,30 @@
+class Login {
+    constructor() {
+
+    }
+}
+
+const log = new Login();
+
 function login() {
-    const nameOfUser = document.querySelector("#userName");
-    const userPassword = document.querySelector("#password");
-    localStorage.setItem("userName", nameOfUser.value);
-    window.location.href = "profile.html";
+    const nameOfUser = document.getElementById("userName").value;
+    const userPassword = document.getElementById("password").value;
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+
+    const searchResults = users.filter(user => user.username.toLowerCase().includes(nameOfUser));
+
+    if(searchResults.length > 0){
+        if(searchResults[0].password === userPassword) {
+            localStorage.setItem("userName", nameOfUser);
+            localStorage.setItem("user",searchResults[0]);
+            window.location.href = "profile.html";
+        } 
+    }
+
+    const invalidEl = document.querySelector('.invalid-login');
+    invalidEl.textContent = "User not found";
+
 }
 
 function register() {
@@ -29,6 +51,7 @@ function register() {
  // }
 
   localStorage.setItem('users', JSON.stringify(users));
+  localStorage.setItem('current-user', JSON.stringify(newUser));
   localStorage.setItem('userName', u);
 
   /*

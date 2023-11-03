@@ -37,9 +37,6 @@
                 <a class="nav-link" href="new_group.html">Create A Group</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="groups.html">Your Groups</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="about.html">About</a>
               </li>
             </ul>
@@ -50,23 +47,24 @@
 
     <main id="small-screen" class="bg-light">
       <div id="small-screen">
-      <div class="d-flex justify-content-center">
-        <form class="">
+        <div class="justify-content-center">
           <h1>Create a Group</h1>
+        </div>
+
+        <div class="d-flex justify-content-center">
           <div>
             <label for="new-group-name">Group Name</label>
             <input type="text" class="form-control" id="new-group-name" placeholder="Josh's group">
 
             <label for="new-class-name">Class Name</label>
             <input type="text" class="form-control" id="new-class-name" placeholder="Art History 101">
-          </div>
-          <div>
+
             <label for="new-group-description">Group Description</label>
             <textarea class="form-control" id="new-group-description" rows="3"></textarea>
+
+            <button onclick="createGroup()" class="btn btn-dark">Create</button>
           </div>
-          <button class="btn btn-dark" type="submit">Create</button>
-        </form>
-      </div>
+        </div>
       </div>
     </main>
 
@@ -76,5 +74,7 @@
       <a href="https://github.com/jfernnn/startup">GitHub</a>
       </div>
     </footer>
+
+    <script src="new_group.js"></script>
   </body>
 </html>
