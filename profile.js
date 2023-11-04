@@ -1,9 +1,38 @@
 class Profile {
 
     constructor(){
+        const currUser = JSON.parse(localStorage.getItem('current-user'));
+    
+        const profileNameEl = document.querySelector('.profile-name');
+        profileNameEl.textContent = currUser.username;
+        const firstNameEl = document.querySelector('.first-name');
+        firstNameEl.textContent = currUser.first_name;
 
-    const profileNameEl = document.querySelector('.profile-name');
-    profileNameEl.textContent = localStorage.getItem('userName');
+
+        const groups = JSON.parse(localStorage.getItem('groups'));
+
+        const iii = document.querySelector("#groupss");
+
+        if(groups != null){
+        groups.forEach(group => {
+            console.log("group", group)
+            group.members.forEach(mem => {
+                if(mem.username === currUser.username) {
+                    iii.innerHTML = 
+                    `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
+                }
+            })
+        })}
+
+        const ii = document.querySelector("#buddiess")
+    
+        if(currUser.buddies.length === 0) ii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some buddies! </button></div></div>` + ii.innerHTML;         
+
+        currUser.buddies.forEach(bud => {
+            ii.innerHTML = 
+            `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadBuddy('${bud}')" class="btn btn-light"> ${bud} </button></div></div>` + ii.innerHTML;         
+
+        })
     }
 
     getProfileName() {
@@ -19,6 +48,38 @@ class Profile {
         return us;
 
     }
+}
+
+function loadBuddy(bud) {
+    console.log("success")
+    console.log(bud)
+
+    const users = JSON.parse(localStorage.getItem('users'));
+
+    console.log(users)
+    const searchResults = users.filter(user => user.username.includes(bud));
+    console.log(searchResults);
+
+    localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
+
+    window.location.href = "others.html";
+
+
+}
+
+function loadGroup(groupName) {
+
+    const groups = JSON.parse(localStorage.getItem('groups'));
+
+    console.log(groups)
+    const searchResults = groups.filter(group => group.name.includes(groupName));
+
+    console.log(searchResults[0]);
+    localStorage.setItem("current-group", JSON.stringify(searchResults[0]));
+
+    window.location.href = "group.html";
+
+
 }
 
 const profile = new Profile();

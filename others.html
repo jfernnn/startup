@@ -46,27 +46,42 @@
     </header>
 
     <main class="bg-light">
-        <h1>_______'s Profile</h1>
-        <h3>_______'s Classes</h3>
-        <menu>
-            <li>Music Theory</li>
-            <li>Web Programming</li>
-            <li>Calculus</li>
-        </menu>
+        <h1><span class="found-name"></span>'s Profile</h1>
+        <h3>Groups</h3>
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div id="groupssss">
+            </div>
+          </div>
+        </div>
+
+        <h3>Friends</h3>
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div id="buddiess">
+            </div>
+          </div>
+        </div>
+        <br />
+        <button onclick="addFriend()">Add Friend</button>
+        <br />
+        <br />
+
         <form>
             <label for="textarea">Post A Message: </label>
             <textarea id="textarea" name="varTextarea"></textarea>
             <button type="submit">Post</button>
         </form>
+
     </main>
 
     <footer>
       <div class="footer fixed-bottom">
-      <hr />
       <span class="text-reset">Author: Joshua Fernelius</span>
-      <br />
       <a href="https://github.com/jfernnn/startup">GitHub</a>
       </div>
     </footer>
+
+    <script src="others.js"></script>
   </body>
 </html>

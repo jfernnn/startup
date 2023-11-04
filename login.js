@@ -17,7 +17,7 @@ function login() {
     if(searchResults.length > 0){
         if(searchResults[0].password === userPassword) {
             localStorage.setItem("userName", nameOfUser);
-            localStorage.setItem("user",searchResults[0]);
+            localStorage.setItem("current-user",JSON.stringify(searchResults[0]));
             window.location.href = "profile.html";
         } 
     }
@@ -42,7 +42,8 @@ function register() {
     password : p,
     first_name : f,
     last_name : l,
-    school : s
+    school : s,
+    buddies : []
   }
   const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -70,4 +71,10 @@ function toggleRegister() {
 
   reg.style.display = 'block';
   log.style.display = 'none';
+}
+
+function destroy() {
+    const u = [];
+    const g = [];
+    localStorage.clear();
 }

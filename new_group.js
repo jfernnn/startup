@@ -3,11 +3,13 @@ function createGroup() {
     const className = document.getElementById("new-class-name").value
     const groupDesc = document.getElementById("new-group-description").value
 
+    const currentUser = JSON.parse(localStorage.getItem('current-user'));
+
     const newGroup = {
         name : groupName,
         class_name : className,
         desc : groupDesc,
-        members : []
+        members : [currentUser]
     }
 
  //   const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -16,9 +18,8 @@ function createGroup() {
 
    // console.log(currentUser);
     const groups = JSON.parse(localStorage.getItem('groups')) || [];
-    const currentUser = JSON.parse(localStorage.getItem('current-user'));
 
-    newGroup.members.push(currentUser);
+ //   newGroup.members.push(currentUser);
     groups.push(newGroup);
 
 

@@ -23,17 +23,18 @@ function searchPerson() {
     let users = JSON.parse(localStorage.getItem('users')) || [];
 
     const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
-    let nameString = "";
+    const nameString = document.querySelector('#person-name');
     if(searchResults.length === 0) {
-        nameString = "No one found";
+        nameString.innerHTML = `No one found`;
     } else {
-        nameString = searchResults[0].first_name;
+        nameString.innerHTML = `<a href="others.html">${searchResults[0].first_name}</a>`;
+        localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
     }
 
     console.log(searchResults.length);
     localStorage.setItem('found-name', nameString);
-    const personNameEl = document.querySelector('.person-name');
-    personNameEl.textContent = localStorage.getItem('found-name');
+ //   const personNameEl = document.querySelector('.person-name');
+ //   personNameEl.textContent = localStorage.getItem('found-name');
 
  //   toggleSearch();
     
@@ -49,16 +50,17 @@ function searchGroup(){
     let groups = JSON.parse(localStorage.getItem('groups')) || [];
 
     const searchResults = groups.filter(group => group.name.toLowerCase().includes(searchGroupName.toLowerCase()));
-    let nameString = "";
+    const nameString = document.querySelector('#group-name');
     if(searchResults.length === 0) {
-        nameString = "No group found";
+        nameString.innerHTML = `No group found`;
     } else {
-        nameString = searchResults[0].name;
+        nameString.innerHTML = `<a href="group.html">${searchResults[0].name}</a>`;
+        localStorage.setItem("found-group", JSON.stringify(searchResults[0]));
     }
 
     console.log(searchResults.length);
     localStorage.setItem('found-group', nameString);
-    const personNameEl = document.querySelector('.group-name');
-    personNameEl.textContent = localStorage.getItem('found-group');
+ //   const personNameEl = document.querySelector('.group-name');
+  //  personNameEl.textContent = localStorage.getItem('found-group');
 
 }
