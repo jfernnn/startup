@@ -56,6 +56,8 @@ function searchGroup(){
     } else {
         nameString.innerHTML = `<a href="group.html">${searchResults[0].name}</a>`;
         localStorage.setItem("found-group", JSON.stringify(searchResults[0]));
+        localStorage.setItem("current-group", JSON.stringify(searchResults[0]));
+
     }
 
     console.log(searchResults.length);

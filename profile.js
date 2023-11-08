@@ -13,6 +13,8 @@ class Profile {
 
         const iii = document.querySelector("#groupss");
 
+        iii.innerHTML = "";
+        var noGroups = true;
         if(groups != null){
         groups.forEach(group => {
             console.log("group", group)
@@ -20,9 +22,13 @@ class Profile {
                 if(mem.username === currUser.username) {
                     iii.innerHTML = 
                     `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
+                    noGroups = false;
                 }
             })
         })}
+
+        if(noGroups) iii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some groups! </button></div></div>`;         
+
 
         const ii = document.querySelector("#buddiess")
     

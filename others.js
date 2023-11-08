@@ -1,6 +1,18 @@
 class Others {
     constructor() {
         const foundUser = JSON.parse(localStorage.getItem('found-user'));
+
+        const currUser = JSON.parse(localStorage.getItem('current-user'));
+    
+        var show = document.getElementById("friend-button");
+        show.style.display = 'block';
+
+        if(currUser.buddies.length > 0){
+            currUser.buddies.forEach(bud => {
+                if(bud === foundUser.username) show.style.display = 'none';
+
+            })
+        }
     
         console.log(foundUser);
 
