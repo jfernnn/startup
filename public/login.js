@@ -78,3 +78,20 @@ function destroy() {
     const g = [];
     localStorage.clear();
 }
+
+function displayQuote(data) {
+  fetch('https://api.chucknorris.io/jokes/random')
+    .then((response) => response.json())
+    .then((data) => {
+      const containerEl = document.querySelector('#joke');
+      console.log(data);
+      const jokeEl = document.createElement('p');
+      jokeEl.classList.add('joke');
+
+      jokeEl.textContent = data.value;
+
+      containerEl.appendChild(jokeEl);
+    });
+}
+
+displayQuote();
