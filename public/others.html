@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StudyBuddy HTML</title>
-    <link rel="icon" href="StudyBooks.ico" />
     <link rel="stylesheet" href="main.css" />
     <!-- Include bootstrap CSS framework -->
     <link
@@ -67,10 +66,21 @@
         <br />
         <br />
 
+        <table class="table table-warning table-striped-columns">
+          <thead class="table-dark">
+            <tr>
+              <th>User</th>
+              <th>Message</th>
+              <th>date</th>
+            </tr>
+          </thead>
+          <tbody id="message_display"></tbody>
+        </table>
+
         <form>
             <label for="textarea">Post A Message: </label>
             <textarea id="textarea" name="varTextarea"></textarea>
-            <button type="submit">Post</button>
+            <button onclick="postMessage()">Post</button>
         </form>
 
     </main>

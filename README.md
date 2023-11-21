@@ -90,3 +90,13 @@ For this deliverable I added JavaScript capabilities to create and sign in a use
 - **Messages** - The ability to message others has not been added yet but JavaScript logic is implemented to make messages appear every 5 seconds to show how it will look
 
 - **View group/buddy pages** - From the users profile page, buddies and groups can be clicked on the view their pages
+
+## Service Deliverables
+
+For this deliverable I added backend endpoints that receive
+
+- **Node.js/Express HTTP service** - done!
+- **Static middleware for frontend** - done!
+- **Calls to third party endpoints** - I made a call to a Chuck Norris joke API to print a joke on the log in page
+- **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for voting.
+- **Frontend calls service endpoints** - I did this using the fetch function.

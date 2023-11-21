@@ -1,12 +1,12 @@
+
+
 class Login {
-    constructor() {
+  constructor() {
 
-    }
-}
+  }
 
-const log = new Login();
 
-function login() {
+  login() {
     const nameOfUser = document.getElementById("userName").value;
     const userPassword = document.getElementById("password").value;
 
@@ -15,55 +15,82 @@ function login() {
     const searchResults = users.filter(user => user.username.toLowerCase().includes(nameOfUser));
 
     if(searchResults.length > 0){
-        if(searchResults[0].password === userPassword) {
-            localStorage.setItem("userName", nameOfUser);
-            localStorage.setItem("current-user",JSON.stringify(searchResults[0]));
-            window.location.href = "profile.html";
-        } 
+      if(searchResults[0].password === userPassword) {
+          localStorage.setItem("userName", nameOfUser);
+          localStorage.setItem("current-user",JSON.stringify(searchResults[0]));
+          window.location.href = "profile.html";
+      } 
     }
 
-    const invalidEl = document.querySelector('.invalid-login');
-    invalidEl.textContent = "User not found";
+  const invalidEl = document.querySelector('.invalid-login');
+  invalidEl.textContent = "User not found";
 
-}
-
-function register() {
-  //const nameOfUser = document.querySelector("#userName");
-  //const userPassword = document.querySelector("#password");
-  const u = document.getElementById("regUserName").value;
-  const p = document.getElementById("regPassword").value;
-  const f = document.getElementById("firstName").value;
-  const l = document.getElementById("firstName").value;
-  const s = document.getElementById("schoolName").value;
-
-
-  const newUser = {
-    username : u,
-    password : p,
-    first_name : f,
-    last_name : l,
-    school : s,
-    buddies : []
   }
-  const users = JSON.parse(localStorage.getItem('users')) || [];
 
- // if(!found) {
-  users.push(newUser);
- // }
+  register() {
+    //const nameOfUser = document.querySelector("#userName");
+    //const userPassword = document.querySelector("#password");
+    const un = document.getElementById("regUserName").value;
+    const p = document.getElementById("regPassword").value;
+    const fn = document.getElementById("firstName").value;
+    const ln = document.getElementById("lastName").value;
+    const sn = document.getElementById("schoolName").value;
 
-  localStorage.setItem('users', JSON.stringify(users));
-  localStorage.setItem('current-user', JSON.stringify(newUser));
-  localStorage.setItem('userName', u);
 
-  /*
-  document.getElementById('regUserName').value = "";
-  document.getElementById('regPassword').value = "";
-  document.getElementById('firstName').value = "";
-  document.getElementById('firstName').value = "";
-  document.getElementById('schoolName').value = "";
-*/
-  window.location.href = "profile.html";
+    const newUser = {
+      username : un,
+      password : p,
+      first_name : fn,
+      last_name : ln,
+      school : sn,
+      buddies : []
+    }
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // if(!found) {
+    users.push(newUser);
+    //this.saveUser(newUser, users);
+
+    // }
+
+    //localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('current-user', JSON.stringify(newUser));
+    localStorage.setItem('userName', un);
+
+    /*
+    document.getElementById('regUserName').value = "";
+    document.getElementById('regPassword').value = "";
+    document.getElementById('firstName').value = "";
+    document.getElementById('firstName').value = "";
+    document.getElementById('schoolName').value = "";
+    */
+    window.location.href = "profile.html";
+  }
+/*
+  async saveUser(newUser, users) {
+    try {
+      const response = await fetch('/api/user', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(newUser),
+      });
+
+      // Store what the service gave us as the high scores
+      const uusers = await response.json();
+      console.log("MADE IT");
+      console.log(uusers);
+      localStorage.setItem('users', JSON.stringify(uusers));
+    } catch {
+      // If there was an error then just track scores locally
+      localStorage.setItem('users', JSON.stringify(users));    
+    }
+  }
+  */
 }
+
+const log = new Login();
+
+
 
 function toggleRegister() {
   var reg = document.getElementById("user-register");

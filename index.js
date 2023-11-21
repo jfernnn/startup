@@ -14,15 +14,24 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-// GetScores
-apiRouter.get('/scores', (_req, res) => {
-  res.send(scores);
+// // GetScores
+// apiRouter.get('/users', (_req, res) => {
+//   res.send(users);
+// });
+
+// // SubmitScore
+// apiRouter.post('/user', (req, res) => {
+//   users = updateUsers(req.body, users);
+//   res.send(users);
+// });
+
+apiRouter.get('/messages', (_req, res) => {
+  res.send(messages);
 });
 
-// SubmitScore
-apiRouter.post('/score', (req, res) => {
-  scores = updateScores(req.body, scores);
-  res.send(scores);
+apiRouter.post('/message', (req, res) => {
+  messages = updateUsers(req.body, messages);
+  res.send(messages);
 });
 
 // Return the application's default page if the path is unknown
@@ -34,3 +43,10 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
+
+let messages = []
+function updateUsers(newMessage, messages) {
+  messages.push(newMessage);
+
+  return messages;
+}

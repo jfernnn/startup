@@ -41,7 +41,7 @@ function searchPerson() {
 
 //    localStorage.setItem("userName", nameOfUser.value);
 //    window.location.href = "find.html";
-  }
+}
 
 function searchGroup(){
     const searchGroupName = document.getElementById("findGroup").value;

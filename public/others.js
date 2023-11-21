@@ -44,10 +44,99 @@ class Others {
             `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadBuddy('${bud}')" class="btn btn-light"> ${bud} </button></div></div>` + ii.innerHTML;         
 
         })
+
     }
 }
 
 const others = new Others();
+
+async function loadMessages() {
+            let messages = [];
+            try {
+              // Get the latest high scores from the service
+              const response = await fetch('/api/messages');
+              messages = await response.json();
+          
+              // Save the scores in case we go offline in the future
+              localStorage.setItem('messages', JSON.stringify(messages));
+            } catch {
+                
+              // If there was an error then just use the last saved scores
+              const messageText = localStorage.getItem('messages');
+              if (messageText) {
+                messages = JSON.parse(messageText);
+              }
+            }
+          
+            displayMessages(messages);
+}
+
+function displayMessages(messages) {
+            const tableBodyEl = document.querySelector('#message_display');
+            messages = [];
+            let m = {
+                messageContent : "KLKL",
+                sentUser : "Joshua",
+                date : "1234"
+            }
+            messages.push(m);
+            if (messages.length) {
+              // Update the DOM with the scores
+              for (const [i, message] of messages.entries()) {
+                const dateTdEl = document.createElement('td');
+                const usernameTdEl = document.createElement('td');
+                const textTdEl = document.createElement('td');
+          
+                textTdEl.textContent = message.messageContent;
+                usernameTdEl.textContent = message.sentUser;
+                dateTdEl.textContent = message.date;
+          
+                const rowEl = document.createElement('tr');
+                rowEl.appendChild(usernameTdEl);
+                rowEl.appendChild(textTdEl);
+                rowEl.appendChild(dateTdEl);
+
+                tableBodyEl.appendChild(rowEl);
+              }
+            } else {
+              //tableBodyEl.innerHTML = '<tr><td colSpan=4>No messages</td></tr>';
+            }
+}
+
+loadMessages();
+
+async function postMessage() {
+    const mc = document.getElementById("textarea").value;
+    const fu = JSON.parse(localStorage.getItem('found-user'));
+    const cu = JSON.parse(localStorage.getItem('current-user'));
+    const d = new Date().toLocaleDateString();
+  
+    const message = {
+      messageContent : mc,
+      sentUser : fu.userName,
+      receiveUser : cu.username,
+      date : d
+    }
+    try {
+      const response = await fetch('/api/message', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(message),
+      });
+  
+      const messages = await response.json();
+      console.log("MADE IT");
+      console.log(messages);
+      localStorage.setItem('messages', JSON.stringify(messages));
+    } catch {
+      console.log("OJID")
+      let messages = [];
+      messages=localStorage.getItem('messages');
+      messages.push(message); 
+      localStorage.setItem('messages', JSON.stringify(messages));    
+    }
+}
+
 
 function addFriend() {
     const currUser = JSON.parse(localStorage.getItem('current-user'));
