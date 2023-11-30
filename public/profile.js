@@ -9,11 +9,14 @@ class Profile {
         firstNameEl.textContent = currUser.first_name;
 
 
-        const groups = JSON.parse(localStorage.getItem('groups'));
+        const groups = getGroups();
+        
+        console.log("Asd")
+        console.log(groups);
 
         const iii = document.querySelector("#groupss");
 
-        iii.innerHTML = "";
+        iii.innerHTML = ``;
         var noGroups = true;
         if(groups != null){
           groups.forEach(group => {
@@ -55,7 +58,24 @@ class Profile {
         return us;
 
     }
+    async getGroups() {
+
+        let groups = [];
+        try {
+            const response = await fetch('/api/groups');
+            groups = await response.json();
+            console.log(groups);
+    
+            localStorage.setItem('groups', JSON.stringify(groups));
+        } catch {
+    
+        }
+
+        return groups;
+    }
+
 }
+
 
 function loadBuddy(bud) {
     console.log("success")

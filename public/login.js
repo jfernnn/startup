@@ -49,19 +49,20 @@ async function register() {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(newUser),
-      })
+      });
+      const users = await response.json();
+      console.log("WOKRED");
+
+      localStorage.setItem('current-user', JSON.stringify(newUser));
+      localStorage.setItem('userName', un);
+  
+      window.location.href = "profile.html";
     } catch {
       console.log("COULDNT REGISTER")
     }
   //  const users = JSON.parse(localStorage.getItem('users')) || [];
 
   //  users.push(newUser);
-
-
-    localStorage.setItem('current-user', JSON.stringify(newUser));
-    localStorage.setItem('userName', un);
-
-    window.location.href = "profile.html";
 }
 
 

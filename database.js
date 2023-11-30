@@ -5,6 +5,7 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('startup');
 const usersCollection = db.collection('users');
+const groupsCollection = db.collection('groups');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -26,12 +27,12 @@ function getUsers() {
 }
 
 async function addGroup(group) {
-    const result = await usersCollection.insertOne(group);
+    const result = await groupsCollection.insertOne(group);
     return result;
 }
   
 function getGroups() {
-    const cursor = usersCollection.find();
+    const cursor = groupsCollection.find();
     return cursor.toArray();
 }
 

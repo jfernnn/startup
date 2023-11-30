@@ -3,6 +3,7 @@ class Group {
     constructor() {
         const currGroup = JSON.parse(localStorage.getItem('current-group'));
         const currUser = JSON.parse(localStorage.getItem('current-user'));
+        console.log(currGroup);
 
         const groupNameEl = document.querySelector('.group-name');
         groupNameEl.textContent = currGroup.name;

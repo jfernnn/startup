@@ -23,12 +23,10 @@ async function searchPerson() {
       users = await response.json();
 
       localStorage.setItem('users', JSON.stringify(users));
-
     } catch {
-      const invalidEl = document.querySelector('.invalid-login');
-      invalidEl.textContent = "User not found";
-    }
 
+    }
+    console.log(users);
     const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
     const usersFound = document.querySelector('#person-name');
 
@@ -37,38 +35,61 @@ async function searchPerson() {
 
     searchResults.forEach(user => {
         usersFound.innerHTML = 
-        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadUser('${user}')" class="btn btn-light"> ${user.first_name} </button></div></div>` + usersFound.innerHTML;         
+        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadUser('${user.username}')" class="btn btn-light"> ${user.first_name} </button></div></div>` + usersFound.innerHTML;         
     })
 
     console.log(searchResults.length);
 
 }
 
-function loadUser(user) {
-  localStorage.setItem("found-user", user);
+async function loadUser(userName) {
+  const users = JSON.parse(localStorage.getItem('users'));
+  const searchResults = users.filter(user => user.username.includes(userName));
+
+  localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
   window.location.href = "others.html";
 }
 
-function searchGroup(){
+async function searchGroup(){
     const searchGroupName = document.getElementById("findGroup").value;
 
-    console.log(searchGroupName);
-    let groups = JSON.parse(localStorage.getItem('groups')) || [];
+    let groups = [];
+    try {
+      const response = await fetch('/api/groups');
+      groups = await response.json();
 
-    const searchResults = groups.filter(group => group.name.toLowerCase().includes(searchGroupName.toLowerCase()));
-    const nameString = document.querySelector('#group-name');
-    if(searchResults.length === 0) {
-        nameString.innerHTML = `No group found`;
-    } else {
-        nameString.innerHTML = `<a href="group.html">${searchResults[0].name}</a>`;
-        localStorage.setItem("found-group", JSON.stringify(searchResults[0]));
-        localStorage.setItem("current-group", JSON.stringify(searchResults[0]));
+      localStorage.setItem('groups', JSON.stringify(groups));
+    } catch {
 
     }
 
-    console.log(searchResults.length);
-    localStorage.setItem('found-group', nameString);
- //   const personNameEl = document.querySelector('.group-name');
-  //  personNameEl.textContent = localStorage.getItem('found-group');
 
+    const searchResults = groups.filter(group => group.name.toLowerCase().includes(searchGroupName.toLowerCase()));
+    console.log("SERCH")
+    console.log(searchResults)
+    const groupsFound = document.querySelector('#group-name');
+
+    groupsFound.innerHTML = ``;
+    if(searchResults.length === 0) {
+        groupsFound.innerHTML = `No group found`;
+    } else {
+      searchResults.forEach(group => {
+        console.log("FOR EACH")
+        console.log(group.name)
+        groupsFound.innerHTML = 
+        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + groupsFound.innerHTML;         
+      })
+  }
+
+    console.log(searchResults.length);
+
+}
+
+function loadGroup(groupName) {
+
+  const groups = JSON.parse(localStorage.getItem('groups'));
+  const searchResults = groups.filter(group => group.name.includes(groupName));
+  
+  localStorage.setItem("current-group", JSON.stringify(searchResults[0]));
+  window.location.href = "group.html";
 }

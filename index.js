@@ -23,8 +23,8 @@ apiRouter.get('/users', async (_req, res) => {
 
 apiRouter.post('/users', async (req, res) => {
   DB.addUser(req.body);
-  //const users = await DB.getUsers();
-  //res.send(users);
+  const users = await DB.getUsers();
+  res.send(users);
 });
 
 apiRouter.get('/groups', async (_req, res) => {
@@ -34,8 +34,8 @@ apiRouter.get('/groups', async (_req, res) => {
 
 apiRouter.post('/groups', async (req, res) => {
   DB.addGroup(req.body);
-  //const users = await DB.getUsers();
-  //res.send(users);
+  const groups = await DB.getGroups();
+  res.send(groups);
 });
 
 
