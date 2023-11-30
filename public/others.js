@@ -56,11 +56,11 @@ async function loadMessages() {
               // Get the latest high scores from the service
               const response = await fetch('/api/messages');
               messages = await response.json();
-          
+              console.log("JOSH")
               // Save the scores in case we go offline in the future
               localStorage.setItem('messages', JSON.stringify(messages));
             } catch {
-                
+              console.log("FERN")
               // If there was an error then just use the last saved scores
               const messageText = localStorage.getItem('messages');
               if (messageText) {

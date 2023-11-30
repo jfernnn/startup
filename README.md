@@ -93,10 +93,11 @@ For this deliverable I added JavaScript capabilities to create and sign in a use
 
 ## Service Deliverables
 
-For this deliverable I added backend endpoints that receive
+For this deliverable I added backend endpoints that receive messages and return sent messages
 
 - **Node.js/Express HTTP service** - done!
 - **Static middleware for frontend** - done!
 - **Calls to third party endpoints** - I made a call to a Chuck Norris joke API to print a joke on the log in page
-- **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for voting.
+- **Backend service endpoints** - Endpoints for messaging.
 - **Frontend calls service endpoints** - I did this using the fetch function.
+

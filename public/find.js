@@ -6,7 +6,6 @@ class Find {
     searchNameEl.textContent = ""
   }
 
-
  toggleSearch() {
     var show = document.getElementById("show-person");
   
@@ -14,33 +13,40 @@ class Find {
   }
 }
 
-const find = new Find();
 
-function searchPerson() {
+async function searchPerson() {
     const searchName = document.getElementById("person").value;
 
-    console.log(searchName);
-    let users = JSON.parse(localStorage.getItem('users')) || [];
+    let users = [];
+    try {
+      const response = await fetch('/api/users');
+      users = await response.json();
 
-    const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
-    const nameString = document.querySelector('#person-name');
-    if(searchResults.length === 0) {
-        nameString.innerHTML = `No one found`;
-    } else {
-        nameString.innerHTML = `<a href="others.html">${searchResults[0].first_name}</a>`;
-        localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
+      localStorage.setItem('users', JSON.stringify(users));
+
+    } catch {
+      const invalidEl = document.querySelector('.invalid-login');
+      invalidEl.textContent = "User not found";
     }
 
+    const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
+    const usersFound = document.querySelector('#person-name');
+
+    usersFound.innerHTML = ``;
+    if(searchResults.length === 0) usersFound.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"> No one found</div></div>`;         
+
+    searchResults.forEach(user => {
+        usersFound.innerHTML = 
+        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadUser('${user}')" class="btn btn-light"> ${user.first_name} </button></div></div>` + usersFound.innerHTML;         
+    })
+
     console.log(searchResults.length);
-    localStorage.setItem('found-name', nameString);
- //   const personNameEl = document.querySelector('.person-name');
- //   personNameEl.textContent = localStorage.getItem('found-name');
 
- //   toggleSearch();
-    
+}
 
-//    localStorage.setItem("userName", nameOfUser.value);
-//    window.location.href = "find.html";
+function loadUser(user) {
+  localStorage.setItem("found-user", user);
+  window.location.href = "others.html";
 }
 
 function searchGroup(){
