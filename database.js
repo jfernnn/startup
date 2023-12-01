@@ -27,11 +27,9 @@ function getUsers() {
 }
 
 async function updateUser(user) {
-  console.log("User:", user);
   const filter = {username: user.username};
   const update = {$set : {buddies: user.buddies}};
-  console.log("Filter: ", filter)
-  console.log("UPDATE: ", update)
+
   const result = await usersCollection.updateOne(filter, update);
   return result;
 }
@@ -46,4 +44,12 @@ function getGroups() {
     return cursor.toArray();
 }
 
-module.exports = { addUser, getUsers, addGroup, getGroups, updateUser };
+async function updateGroup(group) {
+  const filter = {name: group.name};
+  const update = {$set : {members: group.members}};
+
+  const result = await groupsCollection.updateOne(filter, update);
+  return result;
+}
+
+module.exports = { addUser, getUsers, addGroup, getGroups, updateUser, updateGroup };

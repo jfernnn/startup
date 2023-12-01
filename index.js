@@ -45,6 +45,13 @@ apiRouter.post('/groups', async (req, res) => {
   res.send(groups);
 });
 
+apiRouter.put('/groups', async (req, res) => {
+  console.log("DID IT MAKE IT")
+  DB.updateGroup(req.body);
+  const groups = await DB.getGroups();
+  res.send(groups);
+});
+
 
 apiRouter.get('/messages', (_req, res) => {
   res.send(messages);

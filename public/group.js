@@ -32,7 +32,7 @@ class Group {
 const group = new Group();
 
 
-function addGroup() {
+async function addGroup() {
     const currUser = JSON.parse(localStorage.getItem('current-user'));
     const currGroup = JSON.parse(localStorage.getItem('current-group'));
     const groups = JSON.parse(localStorage.getItem('groups'));
@@ -47,12 +47,28 @@ function addGroup() {
         })
     }
 
-    currGroup.members.push(currUser.username);
+    currGroup.members.push(currUser);
+    localStorage.setItem("current-group", JSON.stringify(currGroup));
+
+
 
 
     console.log("current user: ", currUser);
 
+    try {
+        const response = await fetch('/api/groups', {
+            method: 'PUT',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(currGroup),
+        });
+        const groups1 = await response.json();
+        localStorage.setItem("groups", JSON.stringify(groups1));
+        window.location.href = "group.html";
+    } catch {
 
+    }
+
+/*
     groups.forEach(group => {
         console.log(group);
         if(currGroup.name === group.name) {
@@ -60,6 +76,7 @@ function addGroup() {
         }
     })
     console.log(groups);
+    */
 
     localStorage.setItem("current-group", JSON.stringify(currGroup));
     //localStorage.setItem("groups", JSON.stringify(groups));

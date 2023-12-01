@@ -1,5 +1,10 @@
 class Others {
     constructor() {
+
+      var log = document.getElementById("GOAWAY");
+
+      log.style.display = 'none';
+
         const foundUser = JSON.parse(localStorage.getItem('found-user'));
         const currUser = JSON.parse(localStorage.getItem('current-user'));
     
@@ -27,7 +32,7 @@ class Others {
             group.members.forEach(mem => {
                 if(mem.username === foundUser.username) {
                     iii.innerHTML = 
-                    `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
+                    `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" class="btn btn-light" onclick="loadGroup('${group.name}')"> ${group.name} </button></div></div>` + iii.innerHTML;         
                 }
             })
         })}
@@ -44,66 +49,6 @@ class Others {
 }
 
 const others = new Others();
-
-async function startUp() {
-  const users = [];
-  try {
-    const response = await fetch('/api/users');
-    users = await response.json();
-    localStorage.setItem("users", JSON.stringify(users));
-
-    const foundUser0 = JSON.parse(localStorage.getItem('found-user'));
-    const currUser0 = JSON.parse(localStorage.getItem('current-user'));
-
-    const searchResults = users.filter(user => user.username.toLowerCase().includes(foundUser0));
-    localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
-    const searchResults1 = users.filter(user => user.username.toLowerCase().includes(currUser0));
-    localStorage.setItem("current-user", JSON.stringify(searchResults1[0]));
-
-    const foundUser = JSON.parse(localStorage.getItem('found-user'));
-    const currUser = JSON.parse(localStorage.getItem('current-user'));
-
-    var show = document.getElementById("friend-button");
-    show.style.display = 'block';
-
-    if(currUser.buddies.length > 0){
-        currUser.buddies.forEach(bud => {
-            if(bud === foundUser.username) show.style.display = 'none';
-        })
-    }
-
-    const profileNameEl = document.querySelector('.found-name');
-    profileNameEl.textContent = foundUser.username;
- //   const firstNameEl = document.querySelector('.first-name');
-//     firstNameEl.textContent = foundUser.first_name;
-
-
-    const groups = JSON.parse(localStorage.getItem('groups'));
-    const iii = document.querySelector("#groupssss");
-
-    if(groups != null) {
-    groups.forEach(group => {
-        console.log("group", group)
-        group.members.forEach(mem => {
-            if(mem.username === foundUser.username) {
-                iii.innerHTML = 
-                `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
-            }
-        })
-    })}
-
-    const ii = document.querySelector("#buddiess")
-
-    foundUser.buddies.forEach(bud => {
-        ii.innerHTML = 
-        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadBuddy('${bud}')" class="btn btn-light"> ${bud} </button></div></div>` + ii.innerHTML;         
-
-    })
-
-  } catch {
-
-  }
-}
 
 async function loadMessages() {
             let messages = [];
@@ -180,11 +125,9 @@ async function postMessage() {
       });
   
       const messages = await response.json();
-      console.log("MADE IT");
-      console.log(messages);
+
       localStorage.setItem('messages', JSON.stringify(messages));
     } catch {
-      console.log("OJID")
       let messages = [];
       messages=localStorage.getItem('messages');
       messages.push(message); 
@@ -229,36 +172,14 @@ async function addFriend() {
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(foundUser),
       });
-      const users1 = await response.json();
+      const users1 = await response2.json();
       
-      console.log("WOKRED");
-
-      localStorage.setItem("current-user", JSON.stringify(currUser));
-      localStorage.setItem("found-user", JSON.stringify(foundUser));
       localStorage.setItem("users", JSON.stringify(users1));
   
       window.location.href = "others.html";
     } catch {
-      console.log("COULDNT REGISTER")
       window.location.href = "others.html";
     }
-    /*
-
-    const users = JSON.parse(localStorage.getItem('users'));
-    if(users != null) {
-      users.forEach(user => {
-        console.log(user);
-        if(currUser.username === user.username) {
-            user.buddies.push(foundUser.username);
-        }
-        if(foundUser.username === user.username) {
-            user.buddies.push(currUser.username);
-        }
-      }
-    )}
-    console.log(users);
-*/
-
 }
 
 async function loadBuddy(bud) {
@@ -276,6 +197,26 @@ async function loadBuddy(bud) {
     localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
 
     window.location.href = "others.html";
+  } catch {
+
+  }
+
+}
+
+async function loadGroup(group) {
+  console.log(group)
+  let groups = [];
+  try {
+    const response = await fetch('/api/groups');
+    groups = await response.json();
+    console.log(groups);
+
+    const searchResults = groups.filter(groupp => groupp.name.includes(group));
+    console.log(searchResults);
+
+    localStorage.setItem("current-group", JSON.stringify(searchResults[0]));
+
+    window.location.href = "group.html";
   } catch {
 
   }
