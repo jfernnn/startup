@@ -27,6 +27,13 @@ apiRouter.post('/users', async (req, res) => {
   res.send(users);
 });
 
+apiRouter.put('/users', async (req, res) => {
+  console.log("DID IT MAKE IT")
+  DB.updateUser(req.body);
+  const users = await DB.getUsers();
+  res.send(users);
+});
+
 apiRouter.get('/groups', async (_req, res) => {
   const groups = await DB.getGroups(); 
   res.send(groups);

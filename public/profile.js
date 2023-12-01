@@ -7,16 +7,6 @@ class Profile {
         profileNameEl.textContent = currUser.username;
         const firstNameEl = document.querySelector('.first-name');
         firstNameEl.textContent = currUser.first_name;
-
-
-        //const groups = getGroups();
-
-
-        
-        console.log("Asd")
-       // console.log(groups);
-
-
         const ii = document.querySelector("#buddiess")
     
         if(currUser.buddies.length === 0) ii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some buddies! </button></div></div>` + ii.innerHTML;         
@@ -24,28 +14,11 @@ class Profile {
         currUser.buddies.forEach(bud => {
             ii.innerHTML = 
             `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadBuddy('${bud}')" class="btn btn-light"> ${bud} </button></div></div>` + ii.innerHTML;         
-
         })
     }
-
-    getProfileName() {
-        let us = [];
-        let usTest = localStorage.getItem('users');
-        if(usTest) {
-            us = JSON.parse(usTest);
-        }
-        let names = "";
-        for(let u in us) {
-            names += u.username;
-        }
-        return us;
-
-    }
-
-
 }
 
-async function showFriends() {
+async function showGroups() {
     const currUser = JSON.parse(localStorage.getItem('current-user'));
 
     console.log("GROUSP")
@@ -53,20 +26,16 @@ async function showFriends() {
     try {
         const response = await fetch('/api/groups');
         groups = await response.json();
-
-        console.log(groups)
         localStorage.setItem('groups', JSON.stringify(groups));
 
-
         const iii = document.querySelector("#groupss");
-
         iii.innerHTML = ``;
         var noGroups = true;
+
         if(groups != null){
           groups.forEach(group => {
-            console.log("group", group)
             group.members.forEach(mem => {
-                console.log(mem)
+
                 if(mem.username === currUser.username) {
                     iii.innerHTML = 
                     `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
@@ -75,9 +44,7 @@ async function showFriends() {
             })
           })
         }
-
         if(noGroups) iii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some groups! </button></div></div>`;         
-
     } catch {
 
     }
@@ -103,16 +70,11 @@ function loadBuddy(bud) {
 }
 
 function loadGroup(groupName) {
-
     const groups = JSON.parse(localStorage.getItem('groups'));
-
     const searchResults = groups.filter(group => group.name.includes(groupName));
 
     localStorage.setItem("current-group", JSON.stringify(searchResults[0]));
-
     window.location.href = "group.html";
-
-
 }
 
 const profile = new Profile();

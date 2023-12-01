@@ -1,7 +1,6 @@
 class Others {
     constructor() {
         const foundUser = JSON.parse(localStorage.getItem('found-user'));
-
         const currUser = JSON.parse(localStorage.getItem('current-user'));
     
         var show = document.getElementById("friend-button");
@@ -10,12 +9,9 @@ class Others {
         if(currUser.buddies.length > 0){
             currUser.buddies.forEach(bud => {
                 if(bud === foundUser.username) show.style.display = 'none';
-
             })
         }
     
-        console.log(foundUser);
-
         const profileNameEl = document.querySelector('.found-name');
         profileNameEl.textContent = foundUser.username;
      //   const firstNameEl = document.querySelector('.first-name');
@@ -23,7 +19,6 @@ class Others {
 
 
         const groups = JSON.parse(localStorage.getItem('groups'));
-
         const iii = document.querySelector("#groupssss");
 
         if(groups != null) {
@@ -49,6 +44,66 @@ class Others {
 }
 
 const others = new Others();
+
+async function startUp() {
+  const users = [];
+  try {
+    const response = await fetch('/api/users');
+    users = await response.json();
+    localStorage.setItem("users", JSON.stringify(users));
+
+    const foundUser0 = JSON.parse(localStorage.getItem('found-user'));
+    const currUser0 = JSON.parse(localStorage.getItem('current-user'));
+
+    const searchResults = users.filter(user => user.username.toLowerCase().includes(foundUser0));
+    localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
+    const searchResults1 = users.filter(user => user.username.toLowerCase().includes(currUser0));
+    localStorage.setItem("current-user", JSON.stringify(searchResults1[0]));
+
+    const foundUser = JSON.parse(localStorage.getItem('found-user'));
+    const currUser = JSON.parse(localStorage.getItem('current-user'));
+
+    var show = document.getElementById("friend-button");
+    show.style.display = 'block';
+
+    if(currUser.buddies.length > 0){
+        currUser.buddies.forEach(bud => {
+            if(bud === foundUser.username) show.style.display = 'none';
+        })
+    }
+
+    const profileNameEl = document.querySelector('.found-name');
+    profileNameEl.textContent = foundUser.username;
+ //   const firstNameEl = document.querySelector('.first-name');
+//     firstNameEl.textContent = foundUser.first_name;
+
+
+    const groups = JSON.parse(localStorage.getItem('groups'));
+    const iii = document.querySelector("#groupssss");
+
+    if(groups != null) {
+    groups.forEach(group => {
+        console.log("group", group)
+        group.members.forEach(mem => {
+            if(mem.username === foundUser.username) {
+                iii.innerHTML = 
+                `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
+            }
+        })
+    })}
+
+    const ii = document.querySelector("#buddiess")
+
+    foundUser.buddies.forEach(bud => {
+        ii.innerHTML = 
+        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadBuddy('${bud}')" class="btn btn-light"> ${bud} </button></div></div>` + ii.innerHTML;         
+
+    })
+
+  } catch {
+
+  }
+}
 
 async function loadMessages() {
             let messages = [];
@@ -138,7 +193,7 @@ async function postMessage() {
 }
 
 
-function addFriend() {
+async function addFriend() {
     const currUser = JSON.parse(localStorage.getItem('current-user'));
     const foundUser = JSON.parse(localStorage.getItem('found-user'));
 
@@ -153,9 +208,41 @@ function addFriend() {
 
     currUser.buddies.push(foundUser.username);
     foundUser.buddies.push(currUser.username);
+    localStorage.setItem("current-user", JSON.stringify(currUser));
+    localStorage.setItem("found-user", JSON.stringify(foundUser));
+
+
 
     console.log("current user: ", currUser);
     console.log("Found userL: ", foundUser);
+
+    try {
+      const response = await fetch('/api/users', {
+        method: 'PUT',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(currUser),
+      });
+      const users = await response.json();
+      console.log("LOLOL")
+      const response2 = await fetch('/api/users', {
+        method: 'PUT',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(foundUser),
+      });
+      const users1 = await response.json();
+      
+      console.log("WOKRED");
+
+      localStorage.setItem("current-user", JSON.stringify(currUser));
+      localStorage.setItem("found-user", JSON.stringify(foundUser));
+      localStorage.setItem("users", JSON.stringify(users1));
+  
+      window.location.href = "others.html";
+    } catch {
+      console.log("COULDNT REGISTER")
+      window.location.href = "others.html";
+    }
+    /*
 
     const users = JSON.parse(localStorage.getItem('users'));
     if(users != null) {
@@ -170,19 +257,18 @@ function addFriend() {
       }
     )}
     console.log(users);
+*/
 
-    localStorage.setItem("current-user", JSON.stringify(currUser));
-    localStorage.setItem("found-user", JSON.stringify(foundUser));
-    localStorage.setItem("users", JSON.stringify(users));
-
-    window.location.href = "others.html";
 }
 
-function loadBuddy(bud) {
-    console.log("success")
-    console.log(bud)
-
-    const users = JSON.parse(localStorage.getItem('users'));
+async function loadBuddy(bud) {
+  console.log(bud)
+  let users = [];
+  try {
+    console.log("STEW")
+    const response = await fetch('/api/users');
+    users = await response.json();
+    console.log(users);
 
     const searchResults = users.filter(user => user.username.includes(bud));
     console.log(searchResults);
@@ -190,6 +276,8 @@ function loadBuddy(bud) {
     localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
 
     window.location.href = "others.html";
+  } catch {
 
+  }
 
 }
