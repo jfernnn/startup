@@ -101,3 +101,12 @@ For this deliverable I added backend endpoints that receive messages and return 
 - **Backend service endpoints** - Endpoints for messaging.
 - **Frontend calls service endpoints** - I did this using the fetch function.
 
+## DB deliverable
+
+For this deliverable I stored the users and the groups in the database.
+
+- **MongoDB Atlas database created** - done!
+- **Endpoints for data** - Six endpoints now query, add, and update the data in Mongo.
+- **Stores data in MongoDB** - Users and group objects are stored in the database
+- **Update data in MongoDB** - Users buddy list and group members are updated in the database.
+- **Display items from MongoDB** - All user and group info is queried from the database and displayed.

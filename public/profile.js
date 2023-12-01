@@ -7,6 +7,11 @@ class Profile {
         profileNameEl.textContent = currUser.username;
         const firstNameEl = document.querySelector('.first-name');
         firstNameEl.textContent = currUser.first_name;
+
+
+        
+
+
         const ii = document.querySelector("#buddiess")
     
         if(currUser.buddies.length === 0) ii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some buddies! </button></div></div>` + ii.innerHTML;         
