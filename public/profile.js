@@ -9,29 +9,12 @@ class Profile {
         firstNameEl.textContent = currUser.first_name;
 
 
-        const groups = getGroups();
+        //const groups = getGroups();
+
+
         
         console.log("Asd")
-        console.log(groups);
-
-        const iii = document.querySelector("#groupss");
-
-        iii.innerHTML = ``;
-        var noGroups = true;
-        if(groups != null){
-          groups.forEach(group => {
-            console.log("group", group)
-            group.members.forEach(mem => {
-                if(mem.username === currUser.username) {
-                    iii.innerHTML = 
-                    `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group}')" class="btn btn-light"> ${group} </button></div></div>` + iii.innerHTML;         
-                    noGroups = false;
-                }
-            })
-          })
-        }
-
-        if(noGroups) iii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some groups! </button></div></div>`;         
+       // console.log(groups);
 
 
         const ii = document.querySelector("#buddiess")
@@ -58,26 +41,51 @@ class Profile {
         return us;
 
     }
-    async getGroups() {
 
-        let groups = [];
-        try {
-            const response = await fetch('/api/groups');
-            groups = await response.json();
-            console.log(groups);
-    
-            localStorage.setItem('groups', JSON.stringify(groups));
-        } catch {
-    
+
+}
+
+async function showFriends() {
+    const currUser = JSON.parse(localStorage.getItem('current-user'));
+
+    console.log("GROUSP")
+    let groups = [];
+    try {
+        const response = await fetch('/api/groups');
+        groups = await response.json();
+
+        console.log(groups)
+        localStorage.setItem('groups', JSON.stringify(groups));
+
+
+        const iii = document.querySelector("#groupss");
+
+        iii.innerHTML = ``;
+        var noGroups = true;
+        if(groups != null){
+          groups.forEach(group => {
+            console.log("group", group)
+            group.members.forEach(mem => {
+                console.log(mem)
+                if(mem.username === currUser.username) {
+                    iii.innerHTML = 
+                    `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
+                    noGroups = false;
+                }
+            })
+          })
         }
 
-        return groups;
+        if(noGroups) iii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some groups! </button></div></div>`;         
+
+    } catch {
+
     }
 
 }
 
-
 function loadBuddy(bud) {
+    
     console.log("success")
     console.log(bud)
 
@@ -98,10 +106,8 @@ function loadGroup(groupName) {
 
     const groups = JSON.parse(localStorage.getItem('groups'));
 
-    console.log(groups)
     const searchResults = groups.filter(group => group.name.includes(groupName));
 
-    console.log(searchResults[0]);
     localStorage.setItem("current-group", JSON.stringify(searchResults[0]));
 
     window.location.href = "group.html";

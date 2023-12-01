@@ -159,7 +159,7 @@ function addFriend() {
 
     const users = JSON.parse(localStorage.getItem('users'));
     if(users != null) {
-    users.forEach(user => {
+      users.forEach(user => {
         console.log(user);
         if(currUser.username === user.username) {
             user.buddies.push(foundUser.username);
@@ -167,7 +167,8 @@ function addFriend() {
         if(foundUser.username === user.username) {
             user.buddies.push(currUser.username);
         }
-    })}
+      }
+    )}
     console.log(users);
 
     localStorage.setItem("current-user", JSON.stringify(currUser));

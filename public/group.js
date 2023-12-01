@@ -3,7 +3,6 @@ class Group {
     constructor() {
         const currGroup = JSON.parse(localStorage.getItem('current-group'));
         const currUser = JSON.parse(localStorage.getItem('current-user'));
-        console.log(currGroup);
 
         const groupNameEl = document.querySelector('.group-name');
         groupNameEl.textContent = currGroup.name;
@@ -12,12 +11,10 @@ class Group {
         const groupDescEl = document.querySelector('.group-desc');
         groupDescEl.textContent = currGroup.desc;
 
-
         let ms = "";
         let alreadyMember = false;
         var show = document.getElementById("group-button");
         show.style.display = 'block';
-
 
         currGroup.members.forEach(member => {
             if(member.username === currUser.username) show.style.display = 'none';
@@ -29,8 +26,6 @@ class Group {
         ms = ms.substring(0, ms.length-2)
         const membersEl = document.querySelector('.members');
         membersEl.textContent = ms;
-
-
     }
 }
 
@@ -67,7 +62,7 @@ function addGroup() {
     console.log(groups);
 
     localStorage.setItem("current-group", JSON.stringify(currGroup));
-    localStorage.setItem("groups", JSON.stringify(groups));
+    //localStorage.setItem("groups", JSON.stringify(groups));
 
     window.location.href = "group.html";
 }

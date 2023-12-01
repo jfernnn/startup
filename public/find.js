@@ -1,19 +1,3 @@
-class Find {
-
-  constructor(){
-    //localStorage.setItem('person-name', "Josh")
-    const searchNameEl = document.querySelector('.person-name');
-    searchNameEl.textContent = ""
-  }
-
- toggleSearch() {
-    var show = document.getElementById("show-person");
-  
-    show.style.display = 'block';
-  }
-}
-
-
 async function searchPerson() {
     const searchName = document.getElementById("person").value;
 
@@ -26,20 +10,15 @@ async function searchPerson() {
     } catch {
 
     }
-    console.log(users);
     const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
     const usersFound = document.querySelector('#person-name');
 
     usersFound.innerHTML = ``;
     if(searchResults.length === 0) usersFound.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"> No one found</div></div>`;         
-
     searchResults.forEach(user => {
         usersFound.innerHTML = 
         `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadUser('${user.username}')" class="btn btn-light"> ${user.first_name} </button></div></div>` + usersFound.innerHTML;         
     })
-
-    console.log(searchResults.length);
-
 }
 
 async function loadUser(userName) {
@@ -62,11 +41,7 @@ async function searchGroup(){
     } catch {
 
     }
-
-
     const searchResults = groups.filter(group => group.name.toLowerCase().includes(searchGroupName.toLowerCase()));
-    console.log("SERCH")
-    console.log(searchResults)
     const groupsFound = document.querySelector('#group-name');
 
     groupsFound.innerHTML = ``;
@@ -74,19 +49,13 @@ async function searchGroup(){
         groupsFound.innerHTML = `No group found`;
     } else {
       searchResults.forEach(group => {
-        console.log("FOR EACH")
-        console.log(group.name)
         groupsFound.innerHTML = 
         `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + groupsFound.innerHTML;         
       })
   }
-
-    console.log(searchResults.length);
-
 }
 
 function loadGroup(groupName) {
-
   const groups = JSON.parse(localStorage.getItem('groups'));
   const searchResults = groups.filter(group => group.name.includes(groupName));
   
