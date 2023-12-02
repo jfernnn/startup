@@ -73,6 +73,10 @@ function getGroups() {
     return cursor.toArray();
 }
 
+function getGroup(groupname) {
+  return groupsCollection.findOne({ name: groupname });
+}
+
 async function updateGroup(group) {
   const filter = {name: group.name};
   const update = {$set : {members: group.members}};
@@ -90,7 +94,8 @@ module.exports = {
   updateGroup, 
   createUser,
   getUserByToken,
-  getUser 
+  getUser,
+  getGroup 
 };
 
 

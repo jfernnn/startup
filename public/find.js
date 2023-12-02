@@ -5,6 +5,7 @@ async function searchPerson() {
     try {
       const response = await fetch('/api/users');
       users = await response.json();
+      console.log(users)
 
       localStorage.setItem('users', JSON.stringify(users));
       const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
@@ -40,21 +41,23 @@ async function searchGroup(){
       groups = await response.json();
 
       localStorage.setItem('groups', JSON.stringify(groups));
+
+      const searchResults = groups.filter(group => group.name.toLowerCase().includes(searchGroupName.toLowerCase()));
+      const groupsFound = document.querySelector('#group-name');
+  
+      groupsFound.innerHTML = ``;
+      if(searchResults.length === 0) {
+          groupsFound.innerHTML = `No group found`;
+      } else {
+        searchResults.forEach(group => {
+          groupsFound.innerHTML = 
+          `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + groupsFound.innerHTML;         
+        })
+      }
     } catch {
-
+      const groupsFound = document.querySelector('#group-name');
+      groupsFound.innerHTML = "Unauthorized! Must be logged in to search."
     }
-    const searchResults = groups.filter(group => group.name.toLowerCase().includes(searchGroupName.toLowerCase()));
-    const groupsFound = document.querySelector('#group-name');
-
-    groupsFound.innerHTML = ``;
-    if(searchResults.length === 0) {
-        groupsFound.innerHTML = `No group found`;
-    } else {
-      searchResults.forEach(group => {
-        groupsFound.innerHTML = 
-        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + groupsFound.innerHTML;         
-      })
-  }
 }
 
 function loadGroup(groupName) {

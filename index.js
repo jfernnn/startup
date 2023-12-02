@@ -111,9 +111,13 @@ secureApiRouter.get('/groups', async (_req, res) => {
 });
 
 secureApiRouter.post('/groups', async (req, res) => {
-  await DB.addGroup(req.body);
-  const groups = await DB.getGroups();
-  res.send(groups);
+  if (await DB.getGroup(req.body.name)) {
+    res.status(409).send({ msg: '    Group name already exists' });
+  } else {
+    await DB.addGroup(req.body);
+    const groups = await DB.getGroups();
+    res.send(groups);
+  }
 });
 
 secureApiRouter.put('/groups', async (req, res) => {
