@@ -1,3 +1,5 @@
+
+
 async function login() {
     const nameOfUser = document.getElementById("userName").value;
     const userPassword = document.getElementById("password").value;
@@ -44,22 +46,37 @@ async function register() {
       school : sn,
       buddies : []
     };
-    try {
-      const response = await fetch('/api/users', {
+//    try {
+//      const response = await fetch('/api/users', {
+      const response = await fetch('/api/auth/create', {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(newUser),
       });
-      const users = await response.json();
-      console.log("WOKRED");
+//      const users = await response.json();
+      if(response.ok) {
+        console.log("WOKRED");
+        localStorage.setItem('current-user', JSON.stringify(newUser));
+        localStorage.setItem('userName', un);
+        window.location.href = "profile.html";
+      } else {
+//    } catch {
+        console.log("COULDNT REGISTER")
+        const body = await response.json();
+        const modalEl = document.querySelector('#msgModal');
+        modalEl.querySelector('.modal-body').textContent = `⚠ Error: ${body.msg}`;
+        const msgModal = new bootstrap.Modal(modalEl, {});
+        msgModal.show();
+      }
+//    }
+}
 
-      localStorage.setItem('current-user', JSON.stringify(newUser));
-      localStorage.setItem('userName', un);
-  
-      window.location.href = "profile.html";
-    } catch {
-      console.log("COULDNT REGISTER")
-    }
+function logout() {
+  localStorage.removeItem('userName');
+  localStorage.removeItem('current-user');
+  fetch(`/api/auth/logout`, {
+    method: 'delete',
+  }).then(() => (window.location.href = '/'));
 }
 
 

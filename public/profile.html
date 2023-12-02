@@ -47,6 +47,7 @@
 
     <main class="container-fluid text-center bg-light">
 
+      <div id="logged-in" style="display: none">
       <h1><span class="first-name"></span>'s Profile</h1>
       <span class="profile-name"></span>
 
@@ -84,7 +85,13 @@
             </div>
           </div>
         </div>
-
+        <button onclick="logout()">Logout</button>
+      </div>
+      <div id="not-logged-in" style="display: none">
+        <br />
+        <br />
+        <button onclick="loadLogin()">Log in!</button>
+      </div>
 
     </main>
 

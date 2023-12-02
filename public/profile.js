@@ -1,3 +1,27 @@
+(async () => {
+    const currUser = JSON.parse(localStorage.getItem('current-user'));
+    if (currUser) {
+      document.querySelector('.profile-name').textContent = currUser.username;
+      document.querySelector('.first-name').textContent = currUser.first_name;
+      
+      const ii = document.querySelector("#buddiess")
+      if(currUser.buddies.length === 0) ii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some buddies! </button></div></div>` + ii.innerHTML;         
+
+      currUser.buddies.forEach(bud => {
+          ii.innerHTML = 
+          `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadBuddy('${bud}')" class="btn btn-light"> ${bud} </button></div></div>` + ii.innerHTML;         
+      })
+
+      setDisplay('not-logged-in', 'none');
+      setDisplay('logged-in', 'block');
+    } else {
+      setDisplay('not-logged-in', 'block');
+      setDisplay('logged-in', 'none');
+    }
+  })();
+
+
+/*
 class Profile {
 
     constructor(){
@@ -22,6 +46,7 @@ class Profile {
         })
     }
 }
+*/
 
 async function showGroups() {
     const currUser = JSON.parse(localStorage.getItem('current-user'));
@@ -70,8 +95,18 @@ function loadBuddy(bud) {
     localStorage.setItem("found-user", JSON.stringify(searchResults[0]));
 
     window.location.href = "others.html";
+}
 
+function logout() {
+    localStorage.removeItem('userName');
+    localStorage.removeItem('current-user');
+    fetch(`/api/auth/logout`, {
+      method: 'delete',
+    }).then(() => (window.location.href = '/'));
+}
 
+function loadLogin() {
+    window.location.href = 'index.html'
 }
 
 function loadGroup(groupName) {
@@ -82,7 +117,7 @@ function loadGroup(groupName) {
     window.location.href = "group.html";
 }
 
-const profile = new Profile();
+//const profile = new Profile();
 
 
 setInterval(() => {
@@ -104,3 +139,10 @@ setInterval(() => {
     chatText.innerHTML =
       `<div class="event"><span class="player-event"><dt class="col-sm-22"> ${exampleFriends[num2]}</div></span> <dd class="col-sm-22">"${exampleMessages[num]}"</div></div>` + chatText.innerHTML;
   }, 5000);
+
+function setDisplay(controlId, display) {
+    const playControlEl = document.querySelector(`#${controlId}`);
+    if (playControlEl) {
+      playControlEl.style.display = display;
+    }
+}
