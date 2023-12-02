@@ -110,3 +110,16 @@ For this deliverable I stored the users and the groups in the database.
 - **Stores data in MongoDB** - Users and group objects are stored in the database
 - **Update data in MongoDB** - Users buddy list and group members are updated in the database.
 - **Display items from MongoDB** - All user and group info is queried from the database and displayed.
+
+## Login deliverable
+
+For this deliverable I made registering an account secure and restricted functionality if not logged in.
+
+- **User registration** - Securely creates a new account in the database.
+- **Password hashing** - Only stores the hashed password in mongo. 
+- **Creates cookies** - Creates and associates cookies with logged in user.
+- **Existing user** - Can create groups, add friends, and add existing groups.
+- **Use MongoDB to store credentials** - Stores both users and groups.
+- **Restricts functionality** - Users can only access site features if they are logged in.
+- **Frontend and backend** - All functionality works on both front and back end.
+- **Messaging errors** - Messaging other users still needs some work.
