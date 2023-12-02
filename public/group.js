@@ -37,7 +37,6 @@ async function addGroup() {
     const currGroup = JSON.parse(localStorage.getItem('current-group'));
     const groups = JSON.parse(localStorage.getItem('groups'));
 
-
     if(currGroup.members.length > 0){
         currGroup.members.forEach(member => {
             console.log(member)
@@ -49,9 +48,6 @@ async function addGroup() {
 
     currGroup.members.push(currUser);
     localStorage.setItem("current-group", JSON.stringify(currGroup));
-
-
-
 
     console.log("current user: ", currUser);
 
@@ -68,18 +64,6 @@ async function addGroup() {
 
     }
 
-/*
-    groups.forEach(group => {
-        console.log(group);
-        if(currGroup.name === group.name) {
-            group.members.push(currUser);
-        }
-    })
-    console.log(groups);
-    */
-
     localStorage.setItem("current-group", JSON.stringify(currGroup));
-    //localStorage.setItem("groups", JSON.stringify(groups));
-
     window.location.href = "group.html";
 }

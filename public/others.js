@@ -19,9 +19,6 @@ class Others {
     
         const profileNameEl = document.querySelector('.found-name');
         profileNameEl.textContent = foundUser.username;
-     //   const firstNameEl = document.querySelector('.first-name');
-   //     firstNameEl.textContent = foundUser.first_name;
-
 
         const groups = JSON.parse(localStorage.getItem('groups'));
         const iii = document.querySelector("#groupssss");

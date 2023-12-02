@@ -41,70 +41,10 @@
         }
         if(noGroups) iii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some groups! </button></div></div>`;         
     } catch {
-        
-    }
-  })();
-
-
-/*
-class Profile {
-
-    constructor(){
-        const currUser = JSON.parse(localStorage.getItem('current-user'));
-    
-        const profileNameEl = document.querySelector('.profile-name');
-        profileNameEl.textContent = currUser.username;
-        const firstNameEl = document.querySelector('.first-name');
-        firstNameEl.textContent = currUser.first_name;
-
-
-        
-
-
-        const ii = document.querySelector("#buddiess")
-    
-        if(currUser.buddies.length === 0) ii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some buddies! </button></div></div>` + ii.innerHTML;         
-
-        currUser.buddies.forEach(bud => {
-            ii.innerHTML = 
-            `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadBuddy('${bud}')" class="btn btn-light"> ${bud} </button></div></div>` + ii.innerHTML;         
-        })
-    }
-}
-*/
-
-async function showGroups() {
-    const currUser = JSON.parse(localStorage.getItem('current-user'));
-
-    console.log("GROUSP")
-    let groups = [];
-    try {
-        const response = await fetch('/api/groups');
-        groups = await response.json();
-        localStorage.setItem('groups', JSON.stringify(groups));
-
         const iii = document.querySelector("#groupss");
-        iii.innerHTML = ``;
-        var noGroups = true;
-
-        if(groups != null){
-          groups.forEach(group => {
-            group.members.forEach(mem => {
-
-                if(mem.username === currUser.username) {
-                    iii.innerHTML = 
-                    `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadGroup('${group.name}')" class="btn btn-light"> ${group.name} </button></div></div>` + iii.innerHTML;         
-                    noGroups = false;
-                }
-            })
-          })
-        }
-        if(noGroups) iii.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="window.location.href = 'find.html';" class="btn btn-light"> Add some groups! </button></div></div>`;         
-    } catch {
-
+        iii.innerHTML = "Error displaying groups";
     }
-
-}
+})();
 
 function loadBuddy(bud) {
     
@@ -142,7 +82,6 @@ function loadGroup(groupName) {
     window.location.href = "group.html";
 }
 
-//const profile = new Profile();
 
 
 setInterval(() => {

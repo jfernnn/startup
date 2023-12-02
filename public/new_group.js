@@ -23,18 +23,15 @@ async function createGroup() {
             localStorage.setItem('current-group', JSON.stringify(newGroup));
             window.location.href = "group.html";    
         } else {
-    //    } catch {
             console.log("COULDNT REGISTER")
             const body = await response.json();
             const modalEl = document.querySelector('#error-message');
             modalEl.innerHTML = body.msg;
-            //modalEl.querySelector('.modal-body').textContent = `⚠ Error: ${body.msg}`;
-           // const msgModal = new bootstrap.Modal(modalEl, {});
-           // msgModal.show();
         }
 
       } catch {
-        console.log("COULDNT CREATE GROUP")
+        const modalEl = document.querySelector('#error-message');
+        modalEl.innerHTML = "Error creating group";
       }
 }
 
