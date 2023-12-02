@@ -7,18 +7,20 @@ async function searchPerson() {
       users = await response.json();
 
       localStorage.setItem('users', JSON.stringify(users));
+      const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
+      const usersFound = document.querySelector('#person-name');
+  
+      usersFound.innerHTML = ``;
+      if(searchResults.length === 0) usersFound.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"> No one found</div></div>`;         
+      searchResults.forEach(user => {
+          usersFound.innerHTML = 
+          `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadUser('${user.username}')" class="btn btn-light"> ${user.first_name} </button></div></div>` + usersFound.innerHTML;         
+      })
     } catch {
-
+      const usersFound = document.querySelector('#person-name');
+      usersFound.innerHTML = "Unauthorized! Must be logged in to search."
     }
-    const searchResults = users.filter(user => user.first_name.toLowerCase().includes(searchName.toLowerCase()));
-    const usersFound = document.querySelector('#person-name');
 
-    usersFound.innerHTML = ``;
-    if(searchResults.length === 0) usersFound.innerHTML = `<div class="row justify-content-md-center"><div class="col col-lg-2"> No one found</div></div>`;         
-    searchResults.forEach(user => {
-        usersFound.innerHTML = 
-        `<div class="row justify-content-md-center"><div class="col col-lg-2"><button type="button" onclick="loadUser('${user.username}')" class="btn btn-light"> ${user.first_name} </button></div></div>` + usersFound.innerHTML;         
-    })
 }
 
 async function loadUser(userName) {

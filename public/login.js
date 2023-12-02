@@ -4,9 +4,37 @@ async function login() {
     const nameOfUser = document.getElementById("userName").value;
     const userPassword = document.getElementById("password").value;
 
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({username: nameOfUser, password: userPassword}),
+    });
+    console.log(response);
+//      const users = await response.json();
+    if(response.ok) {
+      console.log("WOKRED");
+      const response = await fetch(`/api/users/${nameOfUser}`);
+      user = await response.json();
+      localStorage.setItem('current-user', JSON.stringify(user));
+      localStorage.setItem('userName', nameOfUser);
+      window.location.href = "profile.html";
+    } else {
+//    } catch {
+      console.log("COULDNT REGISTER")
+      const body = await response.json();
+      console.log(body.msg)
+
+      const modalEl = document.querySelector('#msgModal');
+      modalEl.querySelector('.modal-body').textContent = `⚠ Error: ${body.msg}`;
+      const msgModal = new bootstrap.Modal(modalEl, {});
+      msgModal.show();
+    }
+
+    /*
+
     let users = [];
     try {
-      const response = await fetch('/api/users');
+      const response = await fetch('/api/auth/login');
       users = await response.json();
       console.log(users)
 
@@ -27,6 +55,7 @@ async function login() {
       const invalidEl = document.querySelector('.invalid-login');
       invalidEl.textContent = "User not found";
     }
+    */
 
 }
 

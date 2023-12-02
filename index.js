@@ -45,6 +45,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       setAuthCookie(res, user.token);
       res.send({ id: user._id });
+      //res.send(user)
       return;
     }
   }
@@ -84,6 +85,11 @@ secureApiRouter.use(async (req, res, next) => {
 secureApiRouter.get('/users', async (_req, res) => {
   const users = await DB.getUsers(); 
   res.send(users);
+});
+
+secureApiRouter.get('/users/:username', async (_req, res) => {
+  const user = await DB.getUser(_req.params.username); 
+  res.send(user);
 });
 
 secureApiRouter.post('/users', async (req, res) => {
