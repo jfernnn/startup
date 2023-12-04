@@ -43,7 +43,8 @@ async function register() {
       first_name : fn,
       last_name : ln,
       school : sn,
-      buddies : []
+      buddies : [],
+      messages : []
     };
     const response = await fetch('/api/auth/create', {
         method: 'POST',

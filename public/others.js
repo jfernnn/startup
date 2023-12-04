@@ -228,14 +228,18 @@ const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 
 // Display that we have opened the webSocket
 socket.onopen = (event) => {
-  appendMsg('system', 'websocket', 'connected');
+  //appendMsg('system', 'websocket', 'connected');
 };
 
 // Display messages we receive from our friends
 socket.onmessage = async (event) => {
   const text = await event.data.text();
   const chat = JSON.parse(text);
-  appendMsg('friend', chat.name, chat.msg);
+  const foundUser = JSON.parse(localStorage.getItem('found-user'));
+  if(chat.name === foundUser.username) {
+    appendMsg('friend', chat.name, chat.msg, true);
+    //addMessageFriend('me', msg)
+  }
 };
 
 // If the webSocket is closed then disable the interface
@@ -249,19 +253,71 @@ function sendMessage() {
   const msgEl = document.querySelector('#new-msg');
   const msg = msgEl.value;
   if (!!msg) {
-    appendMsg('me', 'me', msg);
+    appendMsg('me', 'me', msg, false);
+    //addMessage('me', msg)
     const name = JSON.parse(localStorage.getItem('current-user')).username;
     socket.send(`{"name":"${name}", "msg":"${msg}"}`);
     msgEl.value = '';
+    appendMsgHelper(JSON.parse(localStorage.getItem('current-user')));
+    appendMsgHelper(JSON.parse(localStorage.getItem('found-user')));
   }
 }
 
 // Create one long list of messages
-function appendMsg(cls, from, msg) {
+function appendMsg(cls, from, msg, tf) {
   const chatText = document.querySelector('#chat-text');
   chatText.innerHTML =
     `<div><span class="${cls}">${from}</span>: ${msg}</div>` +
     chatText.innerHTML;
+    const currUser = JSON.parse(localStorage.getItem('current-user'));
+    console.log(currUser)
+    currUser.messages.push(`${from}: ${msg}`);
+    //appendMsgHelper(currUser);
+  
+    const foundUser = JSON.parse(localStorage.getItem('found-user'));
+    if(tf) foundUser.messages.push(`me: ${msg}`);
+    if(!tf) foundUser.messages.push(`${currUser.username}: ${msg}`);
+    //appendMsgHelper(foundUser);
+    localStorage.setItem("current-user", JSON.stringify(currUser));
+    localStorage.setItem("found-user", JSON.stringify(foundUser));
+}
+
+function addMessage(from, msg) {
+  const currUser = JSON.parse(localStorage.getItem('current-user'));
+  console.log(currUser)
+  currUser.messages.push(`${from}: ${msg}`);
+  appendMsgHelper(currUser);
+
+  const foundUser = JSON.parse(localStorage.getItem('found-user'));
+  foundUser.messages.push(`${currUser.username}: ${msg}`);
+  appendMsgHelper(foundUser);
+  localStorage.setItem("current-user", JSON.stringify(currUser));
+  localStorage.setItem("found-user", JSON.stringify(foundUser));
+}
+
+
+function addMessageFriend(from, msg) {
+  const currUser = JSON.parse(localStorage.getItem('current-user'));
+  console.log(currUser)
+  currUser.messages.push(`${currUser.username}: ${msg}`);
+  appendMsgHelper(currUser);
+
+  const foundUser = JSON.parse(localStorage.getItem('found-user'));
+  foundUser.messages.push(`${from}: ${msg}`);
+  appendMsgHelper(foundUser);
+  localStorage.setItem("current-user", JSON.stringify(currUser));
+  localStorage.setItem("found-user", JSON.stringify(foundUser));
+}
+
+async function appendMsgHelper(currUser) {
+  const response = await fetch('/api/users', {
+    method: 'PUT',
+    headers: {'content-type': 'application/json'},
+    body: JSON.stringify(currUser),
+  });
+  const users = await response.json();
+  console.log(users);
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
 // Send message on enter keystroke

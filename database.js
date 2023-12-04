@@ -35,6 +35,7 @@ async function createUser(user) {
     last_name: user.last_name,
     school: user.school,
     buddies: user.buddies,
+    messages: user.messages,
     token: uuid.v4(),
   };
   await usersCollection.insertOne(nUser);
@@ -57,7 +58,7 @@ function getUserByToken(token) {
 
 async function updateUser(user) {
   const filter = {username: user.username};
-  const update = {$set : {buddies: user.buddies}};
+  const update = {$set : {buddies: user.buddies, messages: user.messages}};
 
   const result = await usersCollection.updateOne(filter, update);
   return result;
