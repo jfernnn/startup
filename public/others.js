@@ -7,7 +7,14 @@ class Others {
 
         const foundUser = JSON.parse(localStorage.getItem('found-user'));
         const currUser = JSON.parse(localStorage.getItem('current-user'));
-    
+
+        var messages = currUser.messages;
+        const chatText = document.querySelector('#chat-text');
+        messages.forEach((message) => 
+          chatText.innerHTML =
+            message + "\n" +
+            chatText.innerHTML
+        );
         var show = document.getElementById("friend-button");
         show.style.display = 'block';
 
@@ -244,7 +251,7 @@ socket.onmessage = async (event) => {
 
 // If the webSocket is closed then disable the interface
 socket.onclose = (event) => {
-  appendMsg('system', 'websocket', 'disconnected');
+  //appendMsg('system', 'websocket', 'disconnected');
   document.querySelector('#chat-controls').disabled = true;
 };
 

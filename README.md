@@ -123,3 +123,13 @@ For this deliverable I made registering an account secure and restricted functio
 - **Restricts functionality** - Users can only access site features if they are logged in.
 - **Frontend and backend** - All functionality works on both front and back end.
 - **Messaging errors** - Messaging other users still needs some work.
+
+## WebSocket deliverable
+
+For this deliverable I used webSocket to update the way you message other users.
+
+- **Backend listens for WebSocket connection** - done!
+- **Frontend makes WebSocket connection** - done!
+- **Data sent over WebSocket connection** - done!
+- **WebSocket data displayed** - Messages are displayed in real time on your own and others profiles.
+- **Messages stored** - Messages are also saved to the database so they persist.
