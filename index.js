@@ -142,7 +142,10 @@ function setAuthCookie(res, authToken) {
     httpOnly: true,
     sameSite: 'strict',
   });
-}
+}  
+
+////////////////////////
+
 server = app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
