@@ -63,19 +63,13 @@ function App() {
           </nav>
         </header>
   
-        <main>
+        <main id="small-screen" class="bg-light">
             <div>
             App components go here
             </div>
-            <div>
-                Hello
-            </div>
-            <div>
-                No good
-            </div>
-            <div>
-                What up
-            </div>
+            <div>g</div>
+            <div>g</div>
+            <div>g</div>
         </main>
 
 
