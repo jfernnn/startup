@@ -133,3 +133,14 @@ For this deliverable I used webSocket to update the way you message other users.
 - **Data sent over WebSocket connection** - done!
 - **WebSocket data displayed** - Messages are displayed in real time on your own and others profiles.
 - **Messages stored** - Messages are also saved to the database so they persist.
+
+
+## React deliverable
+
+For this deliverable I converted the application over to use React.
+
+- **Bundled and transpiled** - Bundled using Vite!
+- **Components** - Created React components for all of my website functionality, including logging in, registering, finding friends, creating groups, and finding groups.
+- **Router** - All of my pages are routed on my app.jsx page.
+- **Single HTML page** - Everything is listed on a single HTML page with React changing the components.
+- **Hooks** - Tried to use hooks but I am still a bit confused as to how they work.
