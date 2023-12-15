@@ -63,7 +63,7 @@ function App() {
           </nav>
         </header>
   
-        <main id="small-screen" class="bg-light">
+        <main id="small-screen" >
             <div>
             App components go here
             </div>

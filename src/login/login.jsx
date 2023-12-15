@@ -130,7 +130,7 @@ export function Login() {
         <p>Register!</p>
         <div>
         <input
-            className='form-control'
+            className='form-control d-flex justify-content-center'
             type='text'
             onChange={(e) => setUsername(e.target.value)}
             placeholder='name'

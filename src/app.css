@@ -43,10 +43,14 @@
 
   menu .nav-item {
     padding: 0 0.3em;
+    justify-content: center;
   }
 
   #user-register {
     display: none;
+  }
+  .form-control {
+    width: 30%;
   }
   
 
